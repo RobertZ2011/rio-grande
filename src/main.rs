@@ -35,15 +35,19 @@ fn main() {
 				shift: 0
 			}
 		}),
-		Instruction::Rrr(rrr::Instruction {
-			op: BinOp::Sub,
+		Instruction::Rri(rri::Instruction {
+			op: BinOp::Cmp,
+			cond: rri::Condition::Al,
+			dest: Register::r0(),
+			src: Register::r3(),
+			imm: 5,
+		}),
+		Instruction::Rri(rri::Instruction {
+			op: BinOp::Add,
+			cond: rri::Condition::Eq,
 			dest: Register::r4(),
-			src1: Register::r2(),
-			src2: Register::r1(),
-			shift: rrr::Shift {
-				kind: rrr::ShiftKind::Shl,
-				shift: 0
-			}
+			src: Register::r0(),
+			imm: 1,
 		}),
 	]);
 
