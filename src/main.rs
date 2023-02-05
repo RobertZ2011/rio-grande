@@ -7,8 +7,18 @@ use bibe_instr::{
 	rri,
 };
 
+use std::fs::File;
+use simplelog::{
+	Config as LogConfig,
+	LevelFilter,
+	WriteLogger,
+};
+
 fn main() {
+	let log_file = File::create("log.txt").expect("Failed to create log file");
 	let mut s = State::new();
+
+	WriteLogger::init(LevelFilter::Debug, LogConfig::default(), log_file).expect("Failed to init logger");
 	
 	s.execute(&[
 		Instruction::Rri(rri::Instruction {
@@ -28,8 +38,8 @@ fn main() {
 		Instruction::Rrr(rrr::Instruction {
 			op: BinOp::Add,
 			dest: Register::r3(),
-			src1: Register::r1(),
-			src2: Register::r2(),
+			lhs: Register::r1(),
+			rhs: Register::r2(),
 			shift: rrr::Shift {
 				kind: rrr::ShiftKind::Shl,
 				shift: 0
