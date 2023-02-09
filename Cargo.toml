@@ -8,5 +8,7 @@ edition = "2021"
 [dependencies]
 bibe-emu = {path = "../bibe-emu" }
 bibe-instr = { path = "../bibe-instr" }
+bibe-asm-proc = { path = "../bibe-asm-proc" }
+clap = "4.1.4"
 log = "0.4.17"
 simplelog = "0.12.0"
