@@ -1,3 +1,4 @@
+/* Copyright 2023 Robert Zieba, see LICENSE file for full license. */
 use bibe_emu::{
 	memory::image::Image,
 	state::State,
