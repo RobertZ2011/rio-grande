@@ -1,10 +1,9 @@
 /* Copyright 2023 Robert Zieba, see LICENSE file for full license. */
 use bibe_emu::{
-	memory::image::Image,
-	state::State,
+	memory::SimpleImage,
+	state::State, target::Target,
 };
-use bibe_instr;
-use bibe_asm_proc::asm;
+
 use clap::{ Arg, Command };
 use std::fs::File;
 use simplelog::{
@@ -12,6 +11,8 @@ use simplelog::{
 	LevelFilter,
 	WriteLogger,
 };
+
+use std::sync::{ Arc, Mutex };
 
 fn main() {
 	let log_file = File::create("log.txt").expect("Failed to create log file");
@@ -21,8 +22,8 @@ fn main() {
 
 	WriteLogger::init(LevelFilter::Debug, LogConfig::default(), log_file).expect("Failed to init logger");
 	
-	let mut image = File::open(&matches.get_one::<String>("input").unwrap()).expect("Failed to open binary");
-	let mut s = State::new(Box::new(Image::load(&mut image)));
+	let mut executable = File::open(&matches.get_one::<String>("input").unwrap()).expect("Failed to open binary");
+	let mut s = State::new(Some(Arc::new(Mutex::new(SimpleImage::load(&mut executable)))), Target::new());
 
 	loop {
 		s.execute();
