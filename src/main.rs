@@ -27,6 +27,5 @@ fn main() {
 
 	loop {
 		s.execute();
-		println!("{}", s);
 	}
 }
